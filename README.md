@@ -1,22 +1,29 @@
 # 4d-plugin-split-pictures
 Split a composite 4D picture (field or variable) into an array of native formats. 
 
-##Platform
+### Platform
 
 | carbon | cocoa | win32 | win64 |
 |:------:|:-----:|:---------:|:---------:|
-|🆗|🆗|🆗|🆗|
+|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|||
 
-Commands
----
+### Version
 
-```c
-// --- Split Pictures
-SPLIT_PICTURES
+<img src="https://cloud.githubusercontent.com/assets/1725068/18940649/21945000-8645-11e6-86ed-4a0f800e5a73.png" width="32" height="32" /> <img src="https://cloud.githubusercontent.com/assets/1725068/18940648/2192ddba-8645-11e6-864d-6d5692d55717.png" width="32" height="32" />
+
+## Syntax
+
+```
+SPLIT PICTURES (picture;types;images)
 ```
 
-Examples
----
+Parameter|Type|Description
+------------|------------|----
+picture|PICTURE|
+types|ARRAY TEXT|
+images|ARRAY PICTURE|
+
+## Examples
 
 ```
 ALL RECORDS([Table_1])
