@@ -1,3 +1,8 @@
+![version](https://img.shields.io/badge/version-18%2B-EB8E5F)
+![platform](https://img.shields.io/static/v1?label=platform&message=mac-intel%20|%20mac-arm%20|%20win-64&color=blue)
+[![license](https://img.shields.io/github/license/miyako/4d-plugin-split-pictures)](LICENSE)
+![downloads](https://img.shields.io/github/downloads/miyako/4d-plugin-split-pictures/total)
+
 # 4d-plugin-split-pictures
 Split a composite 4D picture (field or variable) into an array of native formats. 
 
