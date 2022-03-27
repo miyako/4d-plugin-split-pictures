@@ -3,7 +3,7 @@ Split a composite 4D picture (field or variable) into an array of native formats
 
 ## Syntax
 
-```
+```4d
 SPLIT PICTURES (picture;types;images)
 ```
 
