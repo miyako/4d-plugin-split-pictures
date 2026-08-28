@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base name="Split Pictures" uuid="30F20A15D5558348BD9812A1C6C8C23A" collation_locale="fr">
+	<schema name="DEFAULT_SCHEMA"/>
+	<table name="Table_1" uuid="AB5A6465E8BE4976AA79475DCDA00001" id="1">
+		<field name="UUID" uuid="0E74D58BF4E14C6484363D1F3C8C4A02" type="10" unique="true" autogenerate="true" store_as_UUID="true" not_null="true" id="1"/>
+		<field name="Field_2" uuid="13044EAF241845A483AD7E35DB502610" type="12" never_null="true" id="2"/>
+		<primary_key field_name="UUID" field_uuid="0E74D58BF4E14C6484363D1F3C8C4A02"/>
+		<table_extra input_form="Input" output_form="Output"/>
+	</table>
+	<index kind="regular" unique_keys="true" uuid="18307DD214044F41BA9EDED79E6C04CB" type="7">
+		<field_ref uuid="0E74D58BF4E14C6484363D1F3C8C4A02" name="UUID">
+			<table_ref uuid="AB5A6465E8BE4976AA79475DCDA00001" name="Table_1"/>
+		</field_ref>
+	</index>
+	<base_extra data_file_path=":Split Pictures.4DD" package_name="Split Pictures" structure_file_name="Split Pictures"/>
+</base>
