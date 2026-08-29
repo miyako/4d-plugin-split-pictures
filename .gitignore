@@ -1,3 +1,4 @@
 *.DS_Store
 Split Pictures/build/*
 build/*
+.vs/*
