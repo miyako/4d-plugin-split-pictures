@@ -16,15 +16,26 @@ void PluginMain(PA_long32 selector, PA_PluginParameters params)
 {
 	try
 	{
+		if(params == NULL)
+			return;
+
 		PA_long32 pProcNum = selector;
 		sLONG_PTR *pResult = (sLONG_PTR *)params->fResult;
 		PackagePtr pParams = (PackagePtr)params->fParameters;
+
+		if(pParams == NULL)
+			return;
 
 		CommandDispatcher(pProcNum, pResult, pParams); 
 	}
 	catch(...)
 	{
-
+		// Swallowed intentionally: a plugin must never let a C++ exception
+		// propagate back into 4D. Confirmed harmless as a hang risk
+		// specifically for this plugin: manifest.json declares this
+		// command's syntax as "SPLIT PICTURES(&P;&Y;&Y)" with no trailing
+		// ":Type" token, i.e. no declared return value, so there is no
+		// PA_Return* call this path could ever strand the host waiting on.
 	}
 }
 
@@ -44,8 +55,18 @@ void CommandDispatcher (PA_long32 pProcNum, sLONG_PTR *pResult, PackagePtr pPara
 // -------------------------------- Split Pictures --------------------------------
 
 
+// Defensive cap on the number of sub-pictures we'll ever try to extract from
+// a single composite picture. This does not change behavior for any
+// legitimate picture (which will always exhaust its real component list long
+// before this), it only prevents a corrupt/malformed PICTURE value from
+// driving the extraction loop into an unbounded spin/allocation storm.
+#define kMaxPictureComponents 100000
+
 void SPLIT_PICTURES(sLONG_PTR *pResult, PackagePtr pParams)
 {
+	if(pParams == NULL || pParams[0] == NULL || pParams[1] == NULL || pParams[2] == NULL)
+		return;
+
     PA_Picture Param1 = *(PA_Picture *)(pParams[0]);
 	PA_Variable Param2 = *((PA_Variable*) pParams[1]);
 	PA_Variable Param3 = *((PA_Variable*) pParams[2]);
@@ -84,7 +105,7 @@ void SPLIT_PICTURES(sLONG_PTR *pResult, PackagePtr pParams)
 		PA_ErrorCode err = eER_NoErr;
 		PA_Unistring type;
 		
-		while (err == eER_NoErr){
+		while (err == eER_NoErr && i < kMaxPictureComponents){
             i++;
             type = PA_GetPictureData(Param1, i, 0);
             err = PA_GetLastError();
@@ -105,20 +126,25 @@ void SPLIT_PICTURES(sLONG_PTR *pResult, PackagePtr pParams)
 		}
 		
 		PA_Variable *param2 = ((PA_Variable *)pParams[1]);
-		
+
 		param2->fType = Param2.fType;
 		param2->fFiller = Param2.fFiller;
 		param2->uValue.fArray.fCurrent = Param2.uValue.fArray.fCurrent;
 		param2->uValue.fArray.fNbElements = Param2.uValue.fArray.fNbElements;
 		param2->uValue.fArray.fData = Param2.uValue.fArray.fData;
-        
+
 		PA_Variable *param3 = ((PA_Variable *)pParams[2]);
-		
+
 		param3->fType = Param3.fType;
 		param3->fFiller = Param3.fFiller;
 		param3->uValue.fArray.fCurrent = Param3.uValue.fArray.fCurrent;
 		param3->uValue.fArray.fNbElements = Param3.uValue.fArray.fNbElements;
 		param3->uValue.fArray.fData = Param3.uValue.fArray.fData;
+		// NOTE: reverted from a whole-struct assignment (*param2 = Param2;).
+		// That simplification assumed PA_Variable has no fields beyond
+		// fType/fFiller/uValue — plausible, but unverified without the real
+		// 4DPluginAPI.h. Restored the original field-by-field copy rather
+		// than ship an unverified assumption about the SDK's struct layout.
 	}
 }
 
