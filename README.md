@@ -27,6 +27,14 @@ SPLIT PICTURES ([Table_1]Field_2;$types;$images)
 
 ![](https://github.com/miyako/4d-plugin-split-pictures/blob/master/images/1.png)
 
+## Native ownership checks
+
+Run `python3 -B .github/tests/test_ownership.py -v` on macOS for unsigned,
+offline ASan/UBSan checks of the complete bundled SDK, all 16 wrappers and
+the actual dispatcher. No native image/file commands or project build phases
+are executed. See the [audit and limitations](.github/tests/ownership-audit.md)
+for exact contracts, baseline failures and deferred metadata/OOM behavior.
+
 ## Manual source versioning and publication
 
 Run **Bump version** on an explicitly selected branch with `patch`, `minor` or

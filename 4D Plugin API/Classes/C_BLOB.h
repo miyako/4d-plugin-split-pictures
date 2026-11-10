@@ -54,6 +54,8 @@ extern "C" {
 	{
 		
 	private:
+		C_BLOB(const C_BLOB&);
+		C_BLOB& operator=(const C_BLOB&);
 		
 		CBytes* _CBytes;
 		

@@ -21,6 +21,8 @@ class ARRAY_REAL
 {
 
 private:
+	ARRAY_REAL(const ARRAY_REAL&);
+	ARRAY_REAL& operator=(const ARRAY_REAL&);
 
 	CDoubleArray* _CDoubleArray;
 	

@@ -1,0 +1,23 @@
+name: Native ownership
+
+on:
+  push:
+    branches: [master, miyako-split-pictures-ownership]
+    paths:
+      - '4D Plugin API/**'
+      - '4DPlugin.cpp'
+      - '4DPlugin.h'
+      - '.github/tests/ownership*'
+      - '.github/tests/test_ownership.py'
+      - '.github/workflows/ownership.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  ownership:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unsigned offline ownership regressions
+        run: python3 .github/tests/test_ownership.py -v
