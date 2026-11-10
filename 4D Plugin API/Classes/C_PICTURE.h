@@ -24,6 +24,8 @@ extern "C" {
 	{
 		
 	private:
+		CPicture(const CPicture&);
+		CPicture& operator=(const CPicture&);
 		
 		std::map<CUTF8String, uint32_t> _Types;
 		
@@ -76,6 +78,8 @@ extern "C" {
 	{
 		
 	private:
+		C_PICTURE(const C_PICTURE&);
+		C_PICTURE& operator=(const C_PICTURE&);
 		
 		CPicture* _CPicture;
 

@@ -21,6 +21,8 @@ class ARRAY_TIME
 {
 
 private:
+	ARRAY_TIME(const ARRAY_TIME&);
+	ARRAY_TIME& operator=(const ARRAY_TIME&);
 
 	CIntArray* _CIntArray;
 	

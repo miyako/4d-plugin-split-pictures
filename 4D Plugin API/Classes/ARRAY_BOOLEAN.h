@@ -21,6 +21,8 @@ class ARRAY_BOOLEAN
 {
 
 private:
+	ARRAY_BOOLEAN(const ARRAY_BOOLEAN&);
+	ARRAY_BOOLEAN& operator=(const ARRAY_BOOLEAN&);
 
 	CboolArray* _CboolArray;
 	
